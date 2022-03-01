@@ -1,8 +1,9 @@
 # Coding Challenge 
 
-### In this assessment you will be tasked with filling out the functionality of different methods that will be listed
-further down. These methods will require some level of api interactions with the following base url: https://dummy.restapiexample.com.
+### In this assessment you will be tasked with filling out the functionality of different methods that will be listed further down. 
+These methods will require some level of api interactions with the following base url: https://dummy.restapiexample.com.
 Please keep the following in mind when doing this assessment: clean coding practices, test driven development, logging, and scalability.
+If you are unable to successfully receive responses from the endpoints, mocking the response calls may prove to be helpful.
 
 Endpoints to implement
 
