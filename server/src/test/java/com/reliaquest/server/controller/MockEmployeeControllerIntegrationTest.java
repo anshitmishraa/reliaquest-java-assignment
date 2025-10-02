@@ -118,7 +118,7 @@ class MockEmployeeControllerIntegrationTest {
     @Test
     void getEmployeeById_ShouldReturnBadRequest_WhenInvalidUUID() throws Exception {
         // When & Then
-        mockMvc.perform(get("/api/v1/employee/{id}", "invalid-uuid")).andExpect(status().isBadRequest());
+        mockMvc.perform(get("/api/v1/employee/{id}", "123e4567-e89b-12d3-a456-42661417400 ")).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -242,7 +242,7 @@ class MockEmployeeControllerIntegrationTest {
     @Test
     void deleteEmployeeById_ShouldReturnBadRequest_WhenInvalidUUID() throws Exception {
         // When & Then
-        mockMvc.perform(delete("/api/v1/employee/{id}", "invalid-uuid"))
+        mockMvc.perform(delete("/api/v1/employee/{id}", "123e4567-e89b-12d3-a456-42661417400 "))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Invalid employee ID format"));
     }

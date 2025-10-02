@@ -67,13 +67,13 @@ class MockEmployeeServiceTest {
     void create_ShouldAddNewEmployee_WhenValidInput() {
         // Given
         CreateMockEmployeeInput input = new CreateMockEmployeeInput();
-        input.setName("New Employee");
+        input.setName("Martin Fowler");
         input.setSalary(70000);
         input.setAge(25);
         input.setTitle("Junior Developer");
 
         when(faker.twitter()).thenReturn(twitter);
-        when(twitter.userName()).thenReturn("newemployee");
+        when(twitter.userName()).thenReturn("Martin Fowler");
 
         int initialSize = testEmployees.size();
 
@@ -82,7 +82,7 @@ class MockEmployeeServiceTest {
 
         // Then
         assertThat(result).isNotNull();
-        assertThat(result.getName()).isEqualTo("New Employee");
+        assertThat(result.getName()).isEqualTo("Martin Fowler");
         assertThat(result.getSalary()).isEqualTo(70000);
         assertThat(result.getAge()).isEqualTo(25);
         assertThat(result.getTitle()).isEqualTo("Junior Developer");
@@ -112,7 +112,7 @@ class MockEmployeeServiceTest {
     void delete_ShouldReturnFalse_WhenEmployeeDoesNotExist() {
         // Given
         DeleteMockEmployeeInput input = new DeleteMockEmployeeInput();
-        input.setName("Non Existent Employee");
+        input.setName("Kate Moss");
         int initialSize = testEmployees.size();
 
         // When
@@ -187,7 +187,7 @@ class MockEmployeeServiceTest {
     @Test
     void searchByName_ShouldReturnEmptyList_WhenNoMatches() {
         // Given
-        String searchString = "NonExistent";
+        String searchString = "Patrick Star";
 
         // When
         List<MockEmployee> result = mockEmployeeService.searchByName(searchString);
