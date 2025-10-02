@@ -54,6 +54,12 @@ public class ServerConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RandomRequestLimitInterceptor());
+        // Only add interceptors if not disabled by test property
+        if (!disableInterceptors) {
+            registry.addInterceptor(new RandomRequestLimitInterceptor());
+        }
     }
+
+    @Value("${test.disable-interceptors:false}")
+    private boolean disableInterceptors;
 }
