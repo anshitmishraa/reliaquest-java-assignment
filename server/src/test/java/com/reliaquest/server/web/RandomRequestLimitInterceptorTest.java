@@ -31,10 +31,10 @@ class RandomRequestLimitInterceptorTest {
     @DisplayName("Should allow requests when under the limit")
     void shouldAllowRequestsUnderLimit() throws Exception {
         // Given - fresh interceptor with no previous requests
-        
+
         // When - making a request
         boolean result = interceptor.preHandle(request, response, handler);
-        
+
         // Then - request should be allowed
         assertThat(result).isTrue();
     }
@@ -44,13 +44,13 @@ class RandomRequestLimitInterceptorTest {
     void shouldAllowMultipleRequestsUpToLimit() throws Exception {
         // Given - interceptor with known request limit
         int requestLimit = getRequestLimit();
-        
+
         // When - making requests up to the limit
         for (int i = 0; i < requestLimit; i++) {
             boolean result = interceptor.preHandle(request, response, handler);
             assertThat(result).isTrue();
         }
-        
+
         // Then - all requests should be allowed
         // This is verified in the loop above
     }
@@ -60,15 +60,15 @@ class RandomRequestLimitInterceptorTest {
     void shouldRejectRequestsWhenLimitExceeded() throws Exception {
         // Given - interceptor that has reached its limit
         int requestLimit = getRequestLimit();
-        
+
         // Exhaust the request limit
         for (int i = 0; i < requestLimit; i++) {
             interceptor.preHandle(request, response, handler);
         }
-        
+
         // When - making one more request
         boolean result = interceptor.preHandle(request, response, handler);
-        
+
         // Then - request should be rejected with TOO_MANY_REQUESTS status
         assertThat(result).isFalse();
         verify(response).setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
@@ -79,17 +79,17 @@ class RandomRequestLimitInterceptorTest {
     void shouldContinueRejectingRequestsDuringBackoff() throws Exception {
         // Given - interceptor that has reached its limit
         int requestLimit = getRequestLimit();
-        
+
         // Exhaust the request limit
         for (int i = 0; i < requestLimit; i++) {
             interceptor.preHandle(request, response, handler);
         }
-        
+
         // When - making multiple requests during backoff period
         boolean firstRejection = interceptor.preHandle(request, response, handler);
         boolean secondRejection = interceptor.preHandle(request, response, handler);
         boolean thirdRejection = interceptor.preHandle(request, response, handler);
-        
+
         // Then - all requests should be rejected
         assertThat(firstRejection).isFalse();
         assertThat(secondRejection).isFalse();
@@ -101,19 +101,19 @@ class RandomRequestLimitInterceptorTest {
     void shouldHandleBackoffBehaviorCorrectly() throws Exception {
         // Given - interceptor that has reached its limit
         int requestLimit = getRequestLimit();
-        
+
         // Exhaust the request limit
         for (int i = 0; i < requestLimit; i++) {
             interceptor.preHandle(request, response, handler);
         }
-        
+
         // When - making request after limit is reached
         boolean rejectedResult = interceptor.preHandle(request, response, handler);
-        
+
         // Then - request should be rejected with proper status
         assertThat(rejectedResult).isFalse();
         verify(response).setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-        
+
         // And - subsequent requests should also be rejected during backoff
         boolean stillRejected = interceptor.preHandle(request, response, handler);
         assertThat(stillRejected).isFalse();
@@ -126,7 +126,7 @@ class RandomRequestLimitInterceptorTest {
         int threadCount = 10;
         Thread[] threads = new Thread[threadCount];
         boolean[] results = new boolean[threadCount];
-        
+
         // When - multiple threads make requests simultaneously
         for (int i = 0; i < threadCount; i++) {
             final int index = i;
@@ -138,17 +138,17 @@ class RandomRequestLimitInterceptorTest {
                 }
             });
         }
-        
+
         // Start all threads
         for (Thread thread : threads) {
             thread.start();
         }
-        
+
         // Wait for all threads to complete
         for (Thread thread : threads) {
             thread.join();
         }
-        
+
         // Then - some requests should succeed, some may fail based on timing
         // At least one should succeed (the first one)
         boolean atLeastOneSuccess = false;
@@ -165,23 +165,23 @@ class RandomRequestLimitInterceptorTest {
     @DisplayName("Should increment request count correctly")
     void shouldIncrementRequestCountCorrectly() throws Exception {
         // Given - fresh interceptor
-        
+
         // When - making several requests
         interceptor.preHandle(request, response, handler);
         interceptor.preHandle(request, response, handler);
         interceptor.preHandle(request, response, handler);
-        
+
         // Then - request count should be tracked internally
         // We can't directly access the count, but we can verify behavior
         // by checking that we can still make requests up to the limit
         int requestLimit = getRequestLimit();
-        
+
         // Make remaining requests up to limit
         for (int i = 3; i < requestLimit; i++) {
             boolean result = interceptor.preHandle(request, response, handler);
             assertThat(result).isTrue();
         }
-        
+
         // Next request should be rejected
         boolean result = interceptor.preHandle(request, response, handler);
         assertThat(result).isFalse();
@@ -195,5 +195,4 @@ class RandomRequestLimitInterceptorTest {
         requestLimitField.setAccessible(true);
         return (int) requestLimitField.get(null);
     }
-
 }
