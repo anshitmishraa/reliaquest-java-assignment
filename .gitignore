@@ -1,0 +1,41 @@
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+**/dependency-reduced-pom.xml
+**/build/
+**/out/
+
+### Gradle ###
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+bin/
+
+### VS Code ###
+.vscode/
+
+### Logs ###
+*.log
+logs/
+*.out
+
+### OS-specific ###
+.DS_Store
+Thumbs.db
+
+### Others ###
+*.swp
+*.swo
+*.tmp
+*.bak
