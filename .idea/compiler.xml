@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+<<<<<<< HEAD
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
@@ -11,5 +12,8 @@
         <module name="rqChallenge.server.main" />
       </profile>
     </annotationProcessing>
+=======
+    <bytecodeTargetLevel target="11" />
+>>>>>>> b4e20ed (initial commit)
   </component>
 </project>

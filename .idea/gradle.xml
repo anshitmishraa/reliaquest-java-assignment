@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
@@ -11,6 +12,17 @@
             <option value="$PROJECT_DIR$/java-employee-challenge/api" />
             <option value="$PROJECT_DIR$/java-employee-challenge/buildSrc" />
             <option value="$PROJECT_DIR$/java-employee-challenge/server" />
+=======
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+>>>>>>> b4e20ed (initial commit)
           </set>
         </option>
       </GradleProjectSettings>
