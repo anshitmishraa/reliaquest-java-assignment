@@ -124,7 +124,7 @@ class MockEmployeeControllerTest {
     @Test
     void getEmployeesByNameSearch_ShouldReturnEmptyList_WhenNoMatches() {
         // Given
-        String searchString = "NonExistent";
+        String searchString = "James Kane";
         when(mockEmployeeService.searchByName(searchString)).thenReturn(List.of());
 
         // When
@@ -199,7 +199,7 @@ class MockEmployeeControllerTest {
     @Test
     void getEmployeeById_ShouldReturnBadRequest_WhenInvalidUUID() {
         // Given
-        String invalidId = "invalid-uuid";
+        String invalidId = "123e4567-e89b-12d3-a456-42661417400 ";
 
         // When
         ResponseEntity<MockEmployee> response = mockEmployeeController.getEmployeeById(invalidId);
@@ -358,7 +358,7 @@ class MockEmployeeControllerTest {
     @Test
     void deleteEmployeeById_ShouldReturnBadRequest_WhenInvalidUUID() {
         // Given
-        String invalidId = "invalid-uuid";
+        String invalidId = "123e4567-e89b-12d3-a456-42661417400 ";
 
         // When
         ResponseEntity<String> response = mockEmployeeController.deleteEmployeeById(invalidId);
