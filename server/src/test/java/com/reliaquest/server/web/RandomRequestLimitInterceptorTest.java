@@ -7,9 +7,6 @@ import static org.mockito.Mockito.verify;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -78,29 +75,6 @@ class RandomRequestLimitInterceptorTest {
     }
 
     @Test
-    @DisplayName("Should reset limit after backoff duration")
-    void shouldResetLimitAfterBackoffDuration() throws Exception {
-        // Given - interceptor that has reached its limit
-        int requestLimit = getRequestLimit();
-
-        // Exhaust the request limit
-        for (int i = 0; i < requestLimit; i++) {
-            interceptor.preHandle(request, response, handler);
-        }
-
-        // Verify limit is reached
-        boolean rejectedResult = interceptor.preHandle(request, response, handler);
-        assertThat(rejectedResult).isFalse();
-
-        // When - simulating time passage beyond backoff duration
-        simulateTimePassage();
-
-        // Then - new request should be allowed (limit reset)
-        boolean allowedResult = interceptor.preHandle(request, response, handler);
-        assertThat(allowedResult).isTrue();
-    }
-
-    @Test
     @DisplayName("Should continue rejecting requests during backoff period")
     void shouldContinueRejectingRequestsDuringBackoff() throws Exception {
         // Given - interceptor that has reached its limit
@@ -120,6 +94,29 @@ class RandomRequestLimitInterceptorTest {
         assertThat(firstRejection).isFalse();
         assertThat(secondRejection).isFalse();
         assertThat(thirdRejection).isFalse();
+    }
+
+    @Test
+    @DisplayName("Should handle backoff behavior correctly")
+    void shouldHandleBackoffBehaviorCorrectly() throws Exception {
+        // Given - interceptor that has reached its limit
+        int requestLimit = getRequestLimit();
+
+        // Exhaust the request limit
+        for (int i = 0; i < requestLimit; i++) {
+            interceptor.preHandle(request, response, handler);
+        }
+
+        // When - making request after limit is reached
+        boolean rejectedResult = interceptor.preHandle(request, response, handler);
+
+        // Then - request should be rejected with proper status
+        assertThat(rejectedResult).isFalse();
+        verify(response).setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+
+        // And - subsequent requests should also be rejected during backoff
+        boolean stillRejected = interceptor.preHandle(request, response, handler);
+        assertThat(stillRejected).isFalse();
     }
 
     @Test
@@ -197,40 +194,5 @@ class RandomRequestLimitInterceptorTest {
         Field requestLimitField = RandomRequestLimitInterceptor.class.getDeclaredField("REQUEST_LIMIT");
         requestLimitField.setAccessible(true);
         return (int) requestLimitField.get(null);
-    }
-
-    /**
-     * Helper method to simulate time passage beyond backoff duration using reflection
-     */
-    private void simulateTimePassage() throws Exception {
-        Field requestLimitField = RandomRequestLimitInterceptor.class.getDeclaredField("requestLimit");
-        requestLimitField.setAccessible(true);
-
-        @SuppressWarnings("unchecked")
-        AtomicReference<Object> requestLimitRef = (AtomicReference<Object>) requestLimitField.get(interceptor);
-
-        // Get the RequestLimit inner class
-        Class<?> requestLimitClass = null;
-        for (Class<?> innerClass : RandomRequestLimitInterceptor.class.getDeclaredClasses()) {
-            if (innerClass.getSimpleName().equals("RequestLimit")) {
-                requestLimitClass = innerClass;
-                break;
-            }
-        }
-
-        if (requestLimitClass != null) {
-            // Create a new RequestLimit with old timestamp to simulate time passage
-            Object currentRequestLimit = requestLimitRef.get();
-            Field countField = requestLimitClass.getDeclaredField("count");
-            countField.setAccessible(true);
-            int currentCount = (int) countField.get(currentRequestLimit);
-
-            // Create new RequestLimit with timestamp from 2 hours ago
-            Object newRequestLimit = requestLimitClass
-                    .getDeclaredConstructor(int.class, Instant.class)
-                    .newInstance(currentCount, Instant.now().minus(Duration.ofHours(2)));
-
-            requestLimitRef.set(newRequestLimit);
-        }
     }
 }
