@@ -1,4 +1,4 @@
-package com.reliaquest.server.controller;
+package com.reliaquest.api.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -7,10 +7,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reliaquest.server.model.CreateMockEmployeeInput;
-import com.reliaquest.server.model.DeleteMockEmployeeInput;
-import com.reliaquest.server.model.MockEmployee;
-import com.reliaquest.server.service.MockEmployeeService;
+import com.reliaquest.api.model.CreateMockEmployeeInput;
+import com.reliaquest.api.model.DeleteMockEmployeeInput;
+import com.reliaquest.api.model.MockEmployee;
+import com.reliaquest.api.service.MockEmployeeService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

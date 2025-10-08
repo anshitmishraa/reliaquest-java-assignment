@@ -1,6 +1,6 @@
-package com.reliaquest.server.utils;
+package com.reliaquest.api.utils;
 
-import com.reliaquest.server.model.MockEmployee;
+import com.reliaquest.api.model.MockEmployee;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

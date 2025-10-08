@@ -1,4 +1,4 @@
-package com.reliaquest.server.web;
+package com.reliaquest.api.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

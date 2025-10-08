@@ -1,4 +1,4 @@
-package com.reliaquest.server.model;
+package com.reliaquest.api.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;

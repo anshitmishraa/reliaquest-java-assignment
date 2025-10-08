@@ -1,7 +1,7 @@
-package com.reliaquest.server.config;
+package com.reliaquest.api.config;
 
-import com.reliaquest.server.model.MockEmployee;
-import com.reliaquest.server.web.RandomRequestLimitInterceptor;
+import com.reliaquest.api.model.MockEmployee;
+import com.reliaquest.api.web.RandomRequestLimitInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Slf4j
 @Configuration
-public class ServerConfiguration implements WebMvcConfigurer {
+public class ApiConfiguration implements WebMvcConfigurer {
 
     public static final String EMAIL_TEMPLATE = "%s@company.com";
 

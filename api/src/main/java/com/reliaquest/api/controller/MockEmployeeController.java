@@ -1,11 +1,10 @@
-package com.reliaquest.server.controller;
+package com.reliaquest.api.controller;
 
-import com.reliaquest.api.controller.IEmployeeController;
-import com.reliaquest.server.model.CreateMockEmployeeInput;
-import com.reliaquest.server.model.DeleteMockEmployeeInput;
-import com.reliaquest.server.model.MockEmployee;
-import com.reliaquest.server.model.Response;
-import com.reliaquest.server.service.MockEmployeeService;
+import com.reliaquest.api.model.CreateMockEmployeeInput;
+import com.reliaquest.api.model.DeleteMockEmployeeInput;
+import com.reliaquest.api.model.MockEmployee;
+import com.reliaquest.api.model.Response;
+import com.reliaquest.api.service.MockEmployeeService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import java.util.List;

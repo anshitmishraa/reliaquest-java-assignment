@@ -1,6 +1,6 @@
-package com.reliaquest.server.controller;
+package com.reliaquest.api.controller;
 
-import com.reliaquest.server.model.Response;
+import com.reliaquest.api.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

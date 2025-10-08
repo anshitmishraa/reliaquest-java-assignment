@@ -1,4 +1,4 @@
-package com.reliaquest.server.controller;
+package com.reliaquest.api.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.reliaquest.server.model.CreateMockEmployeeInput;
-import com.reliaquest.server.model.MockEmployee;
-import com.reliaquest.server.service.MockEmployeeService;
+import com.reliaquest.api.model.CreateMockEmployeeInput;
+import com.reliaquest.api.model.MockEmployee;
+import com.reliaquest.api.service.MockEmployeeService;
 import jakarta.validation.Validator;
 import java.util.Arrays;
 import java.util.Collections;
