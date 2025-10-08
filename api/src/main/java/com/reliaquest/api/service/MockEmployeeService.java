@@ -1,9 +1,9 @@
-package com.reliaquest.server.service;
+package com.reliaquest.api.service;
 
-import com.reliaquest.server.config.ServerConfiguration;
-import com.reliaquest.server.model.CreateMockEmployeeInput;
-import com.reliaquest.server.model.DeleteMockEmployeeInput;
-import com.reliaquest.server.model.MockEmployee;
+import com.reliaquest.api.config.ApiConfiguration;
+import com.reliaquest.api.model.CreateMockEmployeeInput;
+import com.reliaquest.api.model.DeleteMockEmployeeInput;
+import com.reliaquest.api.model.MockEmployee;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class MockEmployeeService {
 
     public MockEmployee create(@NonNull CreateMockEmployeeInput input) {
         final var mockEmployee = MockEmployee.from(
-                ServerConfiguration.EMAIL_TEMPLATE.formatted(
+                ApiConfiguration.EMAIL_TEMPLATE.formatted(
                         faker.twitter().userName().toLowerCase()),
                 input);
         mockEmployees.add(mockEmployee);

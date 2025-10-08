@@ -1,4 +1,4 @@
-package com.reliaquest.server.web;
+package com.reliaquest.api.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

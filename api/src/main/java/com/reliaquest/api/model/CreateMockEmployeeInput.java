@@ -1,4 +1,4 @@
-package com.reliaquest.server.model;
+package com.reliaquest.api.model;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
